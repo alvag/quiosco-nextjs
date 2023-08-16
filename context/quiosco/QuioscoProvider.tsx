@@ -5,6 +5,8 @@ import { ActionType, QuioscoActions, StateType, initialState } from '.';
 import axios from 'axios';
 import { Category } from '@prisma/client';
 import { QuioscoContext } from './QuioscoContext';
+import { getCategories } from '@/services';
+import { categories } from '@/prisma/data/categories';
 
 const reducer = (state: StateType, action: ActionType) => {
     switch (action.type) {
@@ -30,20 +32,22 @@ interface QuiscoProviderProps {
 export const QuioscoProvider = ({ children }: QuiscoProviderProps) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const getCategories = async () => {
-        try {
-            const response = await axios.get<Category[]>('/api/categories');
-            dispatch({
-                type: QuioscoActions.SET_CATEGORIES,
-                payload: response.data,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     useEffect(() => {
-        getCategories();
+        getCategories()
+            .then((categories) => {
+                dispatch({
+                    type: QuioscoActions.SET_CATEGORIES,
+                    payload: categories,
+                });
+
+                if (categories.length > 0) {
+                    dispatch({
+                        type: QuioscoActions.SET_CURRENT_CATEGORY,
+                        payload: categories[0],
+                    });
+                }
+            })
+            .catch(console.log);
     }, []);
 
     return (

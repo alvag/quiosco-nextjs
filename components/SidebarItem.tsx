@@ -11,6 +11,7 @@ interface Props {
 export const SidebarItem = ({ category }: Props) => {
     const { name, icon, id } = category;
     const { dispatch } = useQuiosco();
+    const { currentCategory } = useQuiosco().state;
 
     const handleClick = () => {
         dispatch({
@@ -21,7 +22,9 @@ export const SidebarItem = ({ category }: Props) => {
 
     return (
         <div
-            className="flex items-center gap-4 cursor-pointer w-full border p-5 hover:bg-amber-400"
+            className={`${
+                currentCategory?.id === id ? 'bg-amber-400' : ''
+            } flex items-center gap-4 cursor-pointer w-full border p-5 hover:bg-amber-400`}
             onClick={handleClick}
         >
             <Image

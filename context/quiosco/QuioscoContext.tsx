@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, createContext, useEffect, useReducer } from 'react';
+import { Dispatch, createContext, useReducer } from 'react';
 import { ActionType, StateType, initialState } from '.';
 
 export const QuioscoContext = createContext<{
