@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getProductsByCategoryId } from '@/services';
 import { Product } from '@prisma/client';
-import { ProductItem } from '.';
+import { ProductItem } from './ProductItem';
 
 interface Props {
     categoryId: number;

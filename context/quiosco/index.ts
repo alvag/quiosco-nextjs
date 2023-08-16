@@ -5,6 +5,7 @@ export enum QuioscoActions {
     SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY',
     SET_SELECTED_PRODUCT = 'SET_SELECTED_PRODUCT',
     SET_SHOW_MODAL = 'SET_SHOW_MODAL',
+    ADD_PRODUCT_TO_ORDERS = 'ADD_PRODUCT_TO_ORDERS',
 }
 
 export type ActionType = {
@@ -17,9 +18,11 @@ export type StateType = {
     currentCategory: Category | null;
     selectedProduct?: Product;
     showModal?: boolean;
+    orders: any[];
 };
 
 export const initialState: StateType = {
     categories: [],
     currentCategory: null,
+    orders: [],
 };

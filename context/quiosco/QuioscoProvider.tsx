@@ -5,7 +5,7 @@ import { ActionType, QuioscoActions, StateType, initialState } from '.';
 import { QuioscoContext } from './QuioscoContext';
 import { getCategories } from '@/services';
 
-const reducer = (state: StateType, action: ActionType) => {
+const reducer = (state: StateType, action: ActionType): StateType => {
     switch (action.type) {
         case QuioscoActions.SET_CATEGORIES:
             return {
@@ -26,6 +26,20 @@ const reducer = (state: StateType, action: ActionType) => {
             return {
                 ...state,
                 showModal: action.payload,
+            };
+        case QuioscoActions.ADD_PRODUCT_TO_ORDERS:
+            if (state.orders.some((order) => order.id === action.payload.id)) {
+                return {
+                    ...state,
+                    orders: state.orders.map((order) =>
+                        order.id === action.payload.id ? action.payload : order
+                    ),
+                };
+            }
+
+            return {
+                ...state,
+                orders: [...state.orders, action.payload],
             };
         default:
             return state;
