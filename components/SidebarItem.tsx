@@ -1,4 +1,4 @@
-import { QuioscoActions } from '@/context/QuioscoContextProvider';
+import { QuioscoActions } from '@/context/quiosco';
 import { useQuiosco } from '@/hooks';
 import { Category } from '@prisma/client';
 import Image from 'next/image';

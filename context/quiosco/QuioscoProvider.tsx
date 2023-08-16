@@ -1,28 +1,10 @@
 'use client';
 
-import { Dispatch, createContext, useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
+import { ActionType, QuioscoActions, StateType, initialState } from '.';
 import axios from 'axios';
 import { Category } from '@prisma/client';
-
-export enum QuioscoActions {
-    SET_CATEGORIES = 'SET_CATEGORIES',
-    SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY',
-}
-
-type ActionType = {
-    type: QuioscoActions;
-    payload: any;
-};
-
-type StateType = {
-    categories: Category[];
-    currentCategory: Category | null;
-};
-
-const initialState: StateType = {
-    categories: [],
-    currentCategory: null,
-};
+import { QuioscoContext } from './QuioscoContext';
 
 const reducer = (state: StateType, action: ActionType) => {
     switch (action.type) {
@@ -41,24 +23,23 @@ const reducer = (state: StateType, action: ActionType) => {
     }
 };
 
-const QuioscoContext = createContext<{
-    state: StateType;
-    dispatch: Dispatch<ActionType>;
-}>({ state: initialState, dispatch: () => null });
-
 interface QuiscoProviderProps {
     children: JSX.Element | JSX.Element[];
 }
 
-const QuioscoProvider = ({ children }: QuiscoProviderProps) => {
+export const QuioscoProvider = ({ children }: QuiscoProviderProps) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const getCategories = async () => {
-        const response = await axios.get<Category[]>('/api/categories');
-        dispatch({
-            type: QuioscoActions.SET_CATEGORIES,
-            payload: response.data,
-        });
+        try {
+            const response = await axios.get<Category[]>('/api/categories');
+            dispatch({
+                type: QuioscoActions.SET_CATEGORIES,
+                payload: response.data,
+            });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     useEffect(() => {
@@ -76,5 +57,3 @@ const QuioscoProvider = ({ children }: QuiscoProviderProps) => {
         </QuioscoContext.Provider>
     );
 };
-
-export { QuioscoProvider, QuioscoContext };

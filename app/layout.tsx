@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { QuioscoProvider } from '@/context/QuioscoContextProvider';
+import { QuioscoProvider } from '@/context/quiosco/QuioscoProvider';
 import { Sidebar } from '@/components';
 
 const inter = Inter({ subsets: ['latin'] });
