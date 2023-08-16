@@ -2,11 +2,8 @@
 
 import { useEffect, useReducer } from 'react';
 import { ActionType, QuioscoActions, StateType, initialState } from '.';
-import axios from 'axios';
-import { Category } from '@prisma/client';
 import { QuioscoContext } from './QuioscoContext';
 import { getCategories } from '@/services';
-import { categories } from '@/prisma/data/categories';
 
 const reducer = (state: StateType, action: ActionType) => {
     switch (action.type) {
@@ -19,6 +16,16 @@ const reducer = (state: StateType, action: ActionType) => {
             return {
                 ...state,
                 currentCategory: action.payload,
+            };
+        case QuioscoActions.SET_SELECTED_PRODUCT:
+            return {
+                ...state,
+                selectedProduct: action.payload,
+            };
+        case QuioscoActions.SET_SHOW_MODAL:
+            return {
+                ...state,
+                showModal: action.payload,
             };
         default:
             return state;

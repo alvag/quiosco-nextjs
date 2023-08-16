@@ -1,4 +1,6 @@
+import { QuioscoActions } from '@/context/quiosco';
 import { currencyFormat } from '@/helpers';
+import { useQuiosco } from '@/hooks';
 import { Product } from '@prisma/client';
 import Image from 'next/image';
 import React from 'react';
@@ -9,6 +11,19 @@ interface Props {
 
 export const ProductItem = ({ product }: Props) => {
     const { name, image, price } = product;
+    const { dispatch } = useQuiosco();
+
+    const handleSelectProduct = () => {
+        dispatch({
+            type: QuioscoActions.SET_SELECTED_PRODUCT,
+            payload: product,
+        });
+
+        dispatch({
+            type: QuioscoActions.SET_SHOW_MODAL,
+            payload: true,
+        });
+    };
 
     return (
         <div className="border p-3">
@@ -24,6 +39,14 @@ export const ProductItem = ({ product }: Props) => {
                 <p className="mt-5 font-black text-4xl text-amber-500">
                     {currencyFormat(price)}
                 </p>
+
+                <button
+                    type="button"
+                    className="bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded mt-5 w-full uppercase"
+                    onClick={handleSelectProduct}
+                >
+                    Agregar
+                </button>
             </div>
         </div>
     );
