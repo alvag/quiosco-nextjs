@@ -41,6 +41,11 @@ const reducer = (state: StateType, action: ActionType): StateType => {
                 ...state,
                 orders: [...state.orders, action.payload],
             };
+        case QuioscoActions.SET_STEP:
+            return {
+                ...state,
+                step: action.payload,
+            };
         default:
             return state;
     }
