@@ -1,0 +1,1 @@
+export { useQuiosco } from './useQuiosco';
