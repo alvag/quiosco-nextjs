@@ -2,6 +2,7 @@ import { QuioscoActions } from '@/context/quiosco';
 import { useQuiosco } from '@/hooks';
 import { Category } from '@prisma/client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export const SidebarItem = ({ category }: Props) => {
+    const router = useRouter();
     const { name, icon, id } = category;
     const { dispatch } = useQuiosco();
     const { currentCategory } = useQuiosco().state;
@@ -18,6 +20,7 @@ export const SidebarItem = ({ category }: Props) => {
             type: QuioscoActions.SET_CURRENT_CATEGORY,
             payload: category,
         });
+        router.push('/');
     };
 
     return (

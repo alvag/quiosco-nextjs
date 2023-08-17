@@ -7,6 +7,7 @@ export enum QuioscoActions {
     SET_SHOW_MODAL = 'SET_SHOW_MODAL',
     ADD_PRODUCT_TO_ORDERS = 'ADD_PRODUCT_TO_ORDERS',
     SET_STEP = 'SET_STEP',
+    REMOVE_PRODUCT_FROM_ORDERS = 'REMOVE_PRODUCT_FROM_ORDERS',
 }
 
 export type ActionType = {

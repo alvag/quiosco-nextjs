@@ -46,6 +46,13 @@ const reducer = (state: StateType, action: ActionType): StateType => {
                 ...state,
                 step: action.payload,
             };
+        case QuioscoActions.REMOVE_PRODUCT_FROM_ORDERS:
+            return {
+                ...state,
+                orders: state.orders.filter(
+                    (order) => order.id !== action.payload
+                ),
+            };
         default:
             return state;
     }

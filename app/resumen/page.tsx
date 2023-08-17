@@ -1,3 +1,4 @@
+import { OrderList } from '@/components/OrderList';
 import { Metadata } from 'next';
 import { FC } from 'react';
 
@@ -13,6 +14,8 @@ const ResumenPage: FC<ResumenProps> = ({}) => {
         <>
             <h1 className="text-4xl font-black">Resumen</h1>
             <p className="text-2xl mb-10 mt-5">Revisa tu pedido</p>
+
+            <OrderList />
         </>
     );
 };

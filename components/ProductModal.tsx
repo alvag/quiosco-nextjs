@@ -29,6 +29,7 @@ export const ProductModal = () => {
                 id,
                 name,
                 price,
+                image,
                 qty,
             },
         });
@@ -52,7 +53,14 @@ export const ProductModal = () => {
             setQty(order.qty);
             setIsEdit(true);
         }
-    }, [id, orders]);
+
+        return () => {
+            dispatch({
+                type: QuioscoActions.SET_SELECTED_PRODUCT,
+                payload: null,
+            });
+        };
+    }, [id, orders, dispatch]);
 
     return (
         <div className="md:flex gap-10">
